@@ -1,3 +1,7 @@
+/*Este script en JS toma una cadena de caracteres ingresada por el usuario y la convierte según distintos patrones a una fecha en formato AAAA-MM-DD.
+ Fue un script que servía para que cuando el bot preguntaba al usuario en qué fecha quería ser contactado, este tome el input y al transformarlo, 
+ agende directamente la fecha en la que era preciso contactarlo.*/
+
 function horarios(userInput){
 
     var dias = ["domingo","lunes", "martes", "miercoles", "jueves", "viernes","sabado"];

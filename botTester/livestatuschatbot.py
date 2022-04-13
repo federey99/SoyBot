@@ -1,3 +1,6 @@
+#Este programa testea la actividad de un chatbot en una cierta página. Si el bot se encuentra funcionando correctamente, mostrará un mensaje por pantalla que lo certifique. Por otra parte, si el chat bot no contesta, el programa enviará automáticamente un mail y un sms a los destinatarios solicitados, informando sobre la falla técnica del chatbot.
+#Corre en linux y windows.
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
