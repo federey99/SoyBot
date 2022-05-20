@@ -11,7 +11,6 @@ function horarios(userInput){
     fecha_reunion.setDate(base_case.getDate()+1)
     fecha_reunion.setHours(10,0)
   }
-  
 
   //armado de fecha en formato adecuado
   var hora = fecha_reunion.getHours();
@@ -44,8 +43,7 @@ function horarios(userInput){
   var ahora = ["hoy","ahora"]
 
   var frasesAhora = ["cualquier dia","todos los dias","esta semana","en cualquier momento","cuando puedan","en un rato","a cualquier hora"]
-
-
+  var frasesTarde = ["por la tarde", "a la tade", "mas tarde"]
   // Busca ":" en el string y lo reemplaza por " : "
   token1 = userInput.replace(":"," : ");
 
@@ -84,7 +82,13 @@ function horarios(userInput){
 
  if (frasesAhora.includes(userInput)){
   HOY(fecha_reunion)
-} 
+  return formatoFecha(fecha_reunion,base_case)
+}
+if(frasesTarde.includes(userInput)){
+  fecha_reunion.setHours(17,10)
+  return formatoFecha(fecha_reunion,base_case)
+} //si especifica por la tarde
+
 // DIAS
 
 for (let i = 0; i < palabras.length; i++) { 
@@ -93,18 +97,14 @@ for (let i = 0; i < palabras.length; i++) {
       //validación para mañana y pasado mañana
       }else if (palabras[i] == "mañana" && palabras[i-1] != "pasado" && palabras[i-1] != "la"){//si es mañana (falta diferenciar de "a la mañana")
         fecha_reunion.setDate(fecha_reunion.getDate()+1)
-        fecha_reunion.setHours(10)
+        fecha_reunion.setHours(10,0)
       } 
     else if(palabras[i] == "mañana" && palabras[i-1] == "pasado"){// si es pasado mañana
       fecha_reunion.setDate(fecha_reunion.getDate()+2)
-      fecha_reunion.setHours(10)
+      fecha_reunion.setHours(10,0)
     }else if(palabras[i] == "mañana" && palabras[i-1] == "pasado" && palabras[i-1]=="la"){
-      fecha_reunion.setHours(10)
-    }
-
-    if(palabras[i]=="tarde"){fecha_reunion.setHours(17,10)} //si especifica por la tarde
-    
-    
+      fecha_reunion.setHours(10,0)
+    }  
   
     dias.forEach(function(dia,ind){
       if(palabras[i] == dia){
@@ -186,15 +186,14 @@ if(!flagMes){
         if(hora < 12)hora=(hora+12);
         fecha_reunion.setHours(hora)
     }else if (regex.length == 2 && userInput.includes("de")){
-      fecha_reunion.setHours(regex[0]);
+      fecha_reunion.setHours(regex[0],0);
     }else if(regex.length >= 2){fecha_reunion.setHours(regex[0],regex[1])}
-    
-
     }catch{}
   }
 }
 
 if (tarde){fecha_reunion.setHours(fecha_reunion.getHours()+12,0)}
+
 
   //Armado de la fecha
 
@@ -204,13 +203,57 @@ if (tarde){fecha_reunion.setHours(fecha_reunion.getHours()+12,0)}
 
 
 var texto = [
-  "de 15 a 16",
+  "de 16 a 17",
   "tipo 6 hs",
   "a cualquier hora",
   "el martes a las 11",
   "el miercoles a la tarde",
   "por las 15",
-  "llamame mañana a las 2 de la tarde"
+  "llamame mañana a las 2 de la tarde",
+  "por la tarde",
+  "la semana que viene",
+  "mañana a las 5pm",
+  "mañana a las 15:30",
+  "el 22/5 a las 6 pm", //ahora guarda a las 18 pero no el 20/5 //ahora nada
+  "a partir del 7 de agosto a las",
+  "a partir del 5 de junio", 
+  "de lunes a viernes", 
+  "hoy",
+  "ahora mismo",
+  "mañana",
+  "pasado mañana",
+  "cualquier dia",
+  "todos los dias",
+  "el martes",
+  "los jueves",
+  "en 2 dias", //no
+  "en diciembre",
+  "el miercoles",
+  "llamenme hoy",
+  "el proximo jueves a las 15",
+  "el martes entre las 19 y las 20",
+  "mañana a la mañana",
+  "hoy a la tarde",
+  "prueba", //este debería devolver 0 ya que no especifica ninguna fecha
+  "mañana a las 11 pm",
+  "hoy a las 10 am",
+  "los martes a las 19hs",
+  "martes entre las 15 y las 16",
+  "llamenme hoy", 
+  "estare disponible mañana",
+  "si puede ser mañana temprano",
+  "los martes a la mañana", 
+  "jueves a las 18:30 hs",
+  "los martes a las 17 hs",
+  "todos los dias a partir de las 15:00",
+  "hoy a las 9 am", 
+  "hoy por la tarde",
+  "el lunes proximo",
+  "hoy a partir de las 10",
+  "martes 20 de julio a las 18 hs",//<--
+  "de lunes a viernes de 15:00 a 18:00", // -------lo deja para la semana que viene (hoy siendo lunes)
+  "los lunes y viernes de 15:30 a 18:45",
+  "jueves de 15 a 18hs", 
  ]
 for (let i = 0; i < texto.length; i++){
   console.log("")
