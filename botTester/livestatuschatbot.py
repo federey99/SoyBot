@@ -128,6 +128,17 @@ while True:
     # -------------- Borrar directorios basura de /tmp/ --------------------------
     #como este programa utiliza un Chrome driver que genera constantemente archivos temp en linux, es necesario borrarlos para no saturar el disco.
 
+     #Para los directorios que no estan vacios (comentado por ahora):
+    """
+    def borrar_dir_no_vacias():
+    print("Se encontro una carpeta no vacia: "+Fore.CYAN+directory+Fore.RESET+" desea eliminarla de todas formas?",end=" ")
+    confirmacion = input(Fore.YELLOW+"(y/n): "+Fore.RESET)
+    if confirmacion == "y":
+        shutil.rmtree(directory)
+    elif confirmacion == "n":
+        pass
+    else:
+        borrar_dir_no_vacias()"""
     
     
     tmp_directories = glob.glob('/tmp/.com.google.Chrome.*')
@@ -141,6 +152,24 @@ while True:
             shutil.rmtree(directory)
         print(Fore.LIGHTGREEN_EX+"directorios eliminados."+Fore.RESET)
 
+
+
+
+    # recopilación de los mensajes que manda el bot:
+
+    """
+    mensaje = driver.find_elements_by_class_name("olark-operator-message")
+
+    if respuesta: 
+        try:
+            for i in range(len(mensaje)):
+                print(Fore.CYAN+mensaje[i].text+Fore.RESET)
+        except:
+            print("No hubo respuesta")
+        finally:
+            time.sleep(5)
+            driver.quit()
+    """
 
     time.sleep(60*40) #este programa se ejecutará constantemente, cada 40 minutos.
 
